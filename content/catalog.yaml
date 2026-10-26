@@ -1,0 +1,15 @@
+works:
+  - id: demo
+    name: 데모 작품
+    thumbnail: demo/images/thumbnail.svg
+    episodes:
+      - id: episode-1
+        title: 1화
+        path: demo/work.yaml
+  - id: scroll-demo
+    name: 스크롤 데모
+    thumbnail: scroll-demo/images/page-1.svg
+    episodes:
+      - id: episode-1
+        title: 1화
+        path: scroll-demo/work.yaml

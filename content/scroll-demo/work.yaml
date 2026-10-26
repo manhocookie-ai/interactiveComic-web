@@ -1,0 +1,107 @@
+id: scroll_demo
+initial_scene: scroll_reader
+
+resources:
+  page_intro:
+    type: image
+    path: images/page-1.svg
+  page_interaction:
+    type: image
+    path: images/page-2.svg
+  page_finish:
+    type: image
+    path: images/page-3.svg
+  interaction_marker:
+    type: image
+    path: images/interaction-marker.svg
+  completed_page:
+    type: image
+    path: images/completed.svg
+
+scenes:
+  - id: scroll_reader
+    viewer: scroll
+    pages:
+      - id: intro
+        resource: page_intro
+      - id: interaction
+        resource: page_interaction
+      - id: finish
+        resource: page_finish
+
+    objects:
+      - id: middle_marker
+        resource: interaction_marker
+        page: interaction
+      - id: finish_marker
+        resource: interaction_marker
+        page: finish
+
+    choices:
+      - id: inspect_middle
+        effects:
+          - type: flag
+            key: middle_interaction_checked
+            value: true
+          - type: parameter
+            key: interaction_count
+            operation: add
+            value: 1
+      - id: finish_demo
+        effects:
+          - type: change_scene
+            scene: completed
+
+    interactable_areas:
+      - id: middle_area
+        choice: inspect_middle
+        target_object: middle_marker
+        page: interaction
+        bounds: [320, 500, 360, 180]
+      - id: finish_area
+        choice: finish_demo
+        target_object: finish_marker
+        page: finish
+        bounds: [210, 420, 300, 160]
+
+    timeline:
+      events:
+        - time: 0
+          target: middle_marker
+          commands:
+            - type: show
+        - time: 0
+          target: finish_marker
+          commands:
+            - type: show
+        - time: 0
+          target: middle_area
+          commands:
+            - type: enable_interactable_area
+        - time: 0
+          target: finish_area
+          commands:
+            - type: enable_interactable_area
+
+  - id: completed
+    viewer: page
+    pages:
+      - id: completed_page
+        resource: completed_page
+    choices:
+      - id: restart
+        effects:
+          - type: change_scene
+            scene: scroll_reader
+    interactable_areas:
+      - id: restart_button
+        choice: restart
+        page: completed_page
+        text: 다시 테스트하기
+        bounds: [220, 610, 360, 90]
+    timeline:
+      events:
+        - time: 0
+          target: restart_button
+          commands:
+            - type: enable_interactable_area

@@ -1,0 +1,92 @@
+id: demo
+initial_scene: office_01
+
+resources:
+  office_page:
+    type: image
+    path: images/office.svg
+
+  phone:
+    type: image
+    path: images/phone.svg
+
+  hallway_page:
+    type: image
+    path: images/hallway.svg
+
+scenes:
+  - id: office_01
+    pages:
+      - id: office_page
+        resource: office_page
+
+    objects:
+      - id: phone
+        resource: phone
+
+    choices:
+      - id: inspect_phone
+        effects:
+          - type: flag
+            key: checked_phone
+            value: true
+
+          - type: parameter
+            key: progress
+            operation: add
+            value: 1
+
+          - type: change_scene
+            scene: hallway_01
+
+    interactable_areas:
+      - id: phone_area
+        choice: inspect_phone
+        target_object: phone
+        bounds: [420, 230, 180, 260]
+
+    timeline:
+      events:
+        - time: 0.75
+          target: phone
+          commands:
+            - type: show
+          transitions:
+            - property: opacity
+              to: 1.0
+              duration: 1.25
+              transition: sine
+              ease: out
+
+        - time: 2
+          target: phone_area
+          commands:
+            - type: enable_interactable_area
+
+        - time: 2
+          commands:
+            - type: pause
+
+  - id: hallway_01
+    pages:
+      - id: hallway_page
+        resource: hallway_page
+
+    choices:
+      - id: return_to_office
+        effects:
+          - type: change_scene
+            scene: office_01
+
+    interactable_areas:
+      - id: return_button
+        choice: return_to_office
+        text: 사무실로 돌아간다
+        bounds: [332, 620, 360, 72]
+
+    timeline:
+      events:
+        - time: 0.5
+          target: return_button
+          commands:
+            - type: enable_interactable_area

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="900" viewBox="0 0 800 900">
+  <rect width="800" height="900" fill="#16283f"/>
+  <circle cx="400" cy="290" r="130" fill="#55c997"/>
+  <path d="M335 290l45 45 90-110" fill="none" stroke="#ffffff" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="400" y="500" fill="#ffffff" font-family="sans-serif" font-size="62" text-anchor="middle">SCROLL COMPLETE</text>
+  <text x="400" y="565" fill="#b9d4ef" font-family="sans-serif" font-size="28" text-anchor="middle">The Page 3 interaction changed the Scene.</text>
+</svg>

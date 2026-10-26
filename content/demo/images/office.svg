@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="768" viewBox="0 0 1024 768">
+  <rect width="1024" height="768" fill="#d7d2c8"/>
+  <rect y="500" width="1024" height="268" fill="#7c6654"/>
+  <rect x="80" y="90" width="420" height="300" rx="8" fill="#f7f0df" stroke="#302b28" stroke-width="12"/>
+  <path d="M80 210h420M260 90v300" stroke="#302b28" stroke-width="8"/>
+  <rect x="610" y="300" width="310" height="220" rx="12" fill="#5d493d"/>
+  <text x="64" y="700" font-family="sans-serif" font-size="42" fill="#f7f0df">OFFICE 01</text>
+</svg>

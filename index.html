@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Comics</title>
+    <base href="./" />
+    <link href="_framework/dotnet.mftits9vpf.js" rel="preload" as="script" fetchpriority="high" crossorigin="anonymous" integrity="sha256-fh07LJElzp3B65jItVhKoq9f3owik1W6copZy133fes=" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link href="InteractiveComics.Web.styles.css" rel="stylesheet" />
+    <script type="importmap">{
+  "imports": {
+    "./_framework/blazor.webassembly.js": "./_framework/blazor.webassembly.w3qd1tpl0e.js",
+    "./_framework/dotnet.js": "./_framework/dotnet.mftits9vpf.js",
+    "./_framework/dotnet.native.js": "./_framework/dotnet.native.puryxhmhq9.js",
+    "./_framework/dotnet.runtime.js": "./_framework/dotnet.runtime.web2r9gqbh.js"
+  },
+  "scopes": {},
+  "integrity": {
+    "./_framework/blazor.webassembly.js": "sha256-lDXsDYFgm62F+YUvxES7IOTCXYpiHpU3uR45YdC6mq4=",
+    "./_framework/blazor.webassembly.w3qd1tpl0e.js": "sha256-lDXsDYFgm62F+YUvxES7IOTCXYpiHpU3uR45YdC6mq4=",
+    "./_framework/dotnet.js": "sha256-fh07LJElzp3B65jItVhKoq9f3owik1W6copZy133fes=",
+    "./_framework/dotnet.mftits9vpf.js": "sha256-fh07LJElzp3B65jItVhKoq9f3owik1W6copZy133fes=",
+    "./_framework/dotnet.native.js": "sha256-gQbHHzCnWx8iDOC65EKbql7bEltJkfao7lmkAbIRajw=",
+    "./_framework/dotnet.native.puryxhmhq9.js": "sha256-gQbHHzCnWx8iDOC65EKbql7bEltJkfao7lmkAbIRajw=",
+    "./_framework/dotnet.runtime.js": "sha256-SOUHEQ3FhDAibBSR2u90NWZpoBjPuWRmH0BAATUlhJU=",
+    "./_framework/dotnet.runtime.web2r9gqbh.js": "sha256-SOUHEQ3FhDAibBSR2u90NWZpoBjPuWRmH0BAATUlhJU="
+  }
+}</script>
+</head>
+
+<body>
+    <div id="app">
+        <main class="viewer-state" aria-live="polite">
+            <div class="loading-mark" aria-hidden="true"></div>
+            <h1>뷰어를 준비하는 중입니다</h1>
+        </main>
+    </div>
+
+    <div id="blazor-error-ui">
+        앱을 계속 실행할 수 없습니다.
+        <a href="." class="reload">새로고침</a>
+        <button type="button" class="dismiss" aria-label="오류 닫기">닫기</button>
+    </div>
+    <script>
+        window.interactiveComics = {
+            getImageSize: function (url) {
+                return new Promise(function (resolve, reject) {
+                    const image = new Image();
+                    image.onload = function () {
+                        resolve({ width: image.naturalWidth, height: image.naturalHeight });
+                    };
+                    image.onerror = function () {
+                        reject(new Error("이미지를 불러오지 못했습니다: " + url));
+                    };
+                    image.src = url;
+                });
+            },
+            playSound: function (url) {
+                const audio = new Audio(url);
+                return audio.play();
+            }
+        };
+    </script>
+    <script src="_framework/blazor.webassembly.w3qd1tpl0e.js"></script>
+</body>
+
+</html>
