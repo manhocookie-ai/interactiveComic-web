@@ -365,6 +365,50 @@ button:focus-visible {
     background: #373d4e;
 }
 
+.pause-menu button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.save-slot-list {
+    display: grid;
+    gap: 10px;
+    max-height: min(58vh, 480px);
+    overflow-y: auto;
+}
+
+.save-slot {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid #4a5060;
+    border-radius: 6px;
+    background: #181b24;
+}
+
+.save-slot img {
+    width: 56px;
+    height: 56px;
+    object-fit: cover;
+}
+
+.save-slot-copy {
+    display: grid;
+    min-width: 0;
+    gap: 3px;
+}
+
+.save-slot-copy span,
+.save-slot-copy time {
+    color: #c9d1dc;
+    font-size: 0.8125rem;
+}
+
+.save-slot > button {
+    grid-column: 1 / -1;
+}
+
 .image-interaction {
     padding: 0;
     border: 2px solid transparent;

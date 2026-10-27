@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Interactive Comics</title>
     <base href="./" />
-    <link href="_framework/dotnet.mftits9vpf.js" rel="preload" as="script" fetchpriority="high" crossorigin="anonymous" integrity="sha256-fh07LJElzp3B65jItVhKoq9f3owik1W6copZy133fes=" />
+    <link href="_framework/dotnet.ixrys8ebp4.js" rel="preload" as="script" fetchpriority="high" crossorigin="anonymous" integrity="sha256-5h3EKixctnBU5csh+RxnM04UGEYVz+nLJOzLG3m+li8=" />
     <link rel="stylesheet" href="css/app.css" />
     <link href="InteractiveComics.Web.styles.css" rel="stylesheet" />
     <script type="importmap">{
   "imports": {
     "./_framework/blazor.webassembly.js": "./_framework/blazor.webassembly.w3qd1tpl0e.js",
-    "./_framework/dotnet.js": "./_framework/dotnet.mftits9vpf.js",
+    "./_framework/dotnet.js": "./_framework/dotnet.ixrys8ebp4.js",
     "./_framework/dotnet.native.js": "./_framework/dotnet.native.puryxhmhq9.js",
     "./_framework/dotnet.runtime.js": "./_framework/dotnet.runtime.web2r9gqbh.js"
   },
@@ -20,8 +20,8 @@
   "integrity": {
     "./_framework/blazor.webassembly.js": "sha256-lDXsDYFgm62F+YUvxES7IOTCXYpiHpU3uR45YdC6mq4=",
     "./_framework/blazor.webassembly.w3qd1tpl0e.js": "sha256-lDXsDYFgm62F+YUvxES7IOTCXYpiHpU3uR45YdC6mq4=",
-    "./_framework/dotnet.js": "sha256-fh07LJElzp3B65jItVhKoq9f3owik1W6copZy133fes=",
-    "./_framework/dotnet.mftits9vpf.js": "sha256-fh07LJElzp3B65jItVhKoq9f3owik1W6copZy133fes=",
+    "./_framework/dotnet.ixrys8ebp4.js": "sha256-5h3EKixctnBU5csh+RxnM04UGEYVz+nLJOzLG3m+li8=",
+    "./_framework/dotnet.js": "sha256-5h3EKixctnBU5csh+RxnM04UGEYVz+nLJOzLG3m+li8=",
     "./_framework/dotnet.native.js": "sha256-gQbHHzCnWx8iDOC65EKbql7bEltJkfao7lmkAbIRajw=",
     "./_framework/dotnet.native.puryxhmhq9.js": "sha256-gQbHHzCnWx8iDOC65EKbql7bEltJkfao7lmkAbIRajw=",
     "./_framework/dotnet.runtime.js": "sha256-SOUHEQ3FhDAibBSR2u90NWZpoBjPuWRmH0BAATUlhJU=",
@@ -60,6 +60,140 @@
             playSound: function (url) {
                 const audio = new Audio(url);
                 return audio.play();
+            },
+            getScrollOffset: function () {
+                return window.scrollY;
+            },
+            restoreScrollOffset: function (offset) {
+                window.scrollTo({ top: offset, left: 0, behavior: "instant" });
+            },
+            registerLifecycle: function (receiver) {
+                this.unregisterLifecycle();
+                const save = function () {
+                    receiver.invokeMethodAsync("SaveBeforeSuspendAsync");
+                };
+                const visibility = function () {
+                    if (document.visibilityState === "hidden") {
+                        save();
+                    }
+                };
+                const popState = function () {
+                    if (window.interactiveComics.suppressNextPop) {
+                        window.interactiveComics.suppressNextPop = false;
+                        return;
+                    }
+                    if (!window.interactiveComics.viewerNavigationActive) {
+                        return;
+                    }
+                    history.pushState({ interactiveComicsViewer: true }, "");
+                    receiver.invokeMethodAsync("HandleCancelAsync");
+                };
+                const keyDown = function (event) {
+                    if (event.key === "Escape" &&
+                        window.interactiveComics.viewerNavigationActive) {
+                        event.preventDefault();
+                        receiver.invokeMethodAsync("HandleCancelAsync");
+                    }
+                };
+                window.addEventListener("pagehide", save);
+                window.addEventListener("popstate", popState);
+                window.addEventListener("keydown", keyDown);
+                document.addEventListener("visibilitychange", visibility);
+                this.lifecycle = {
+                    save: save,
+                    visibility: visibility,
+                    popState: popState,
+                    keyDown: keyDown
+                };
+            },
+            unregisterLifecycle: function () {
+                if (!this.lifecycle) {
+                    return;
+                }
+                window.removeEventListener("pagehide", this.lifecycle.save);
+                window.removeEventListener("popstate", this.lifecycle.popState);
+                window.removeEventListener("keydown", this.lifecycle.keyDown);
+                document.removeEventListener("visibilitychange", this.lifecycle.visibility);
+                this.lifecycle = null;
+            },
+            setViewerNavigationActive: function (active) {
+                if (active && !this.viewerNavigationActive) {
+                    history.pushState({ interactiveComicsViewer: true }, "");
+                    this.viewerNavigationActive = true;
+                    return;
+                }
+                if (!active && this.viewerNavigationActive) {
+                    this.viewerNavigationActive = false;
+                    this.suppressNextPop = true;
+                    history.back();
+                }
+            },
+            progress: {
+                open: function () {
+                    return new Promise(function (resolve, reject) {
+                        const request = indexedDB.open("interactive-comics", 1);
+                        request.onupgradeneeded = function () {
+                            const database = request.result;
+                            if (!database.objectStoreNames.contains("progress")) {
+                                database.createObjectStore("progress", { keyPath: "key" });
+                            }
+                        };
+                        request.onsuccess = function () {
+                            resolve(request.result);
+                        };
+                        request.onerror = function () {
+                            reject(request.error);
+                        };
+                    });
+                },
+                save: async function (key, snapshot) {
+                    const database = await window.interactiveComics.progress.open();
+                    return new Promise(function (resolve, reject) {
+                        const transaction = database.transaction("progress", "readwrite");
+                        transaction.objectStore("progress").put({ key: key, snapshot: snapshot });
+                        transaction.oncomplete = function () {
+                            database.close();
+                            resolve();
+                        };
+                        transaction.onerror = function () {
+                            database.close();
+                            reject(transaction.error);
+                        };
+                        transaction.onabort = transaction.onerror;
+                    });
+                },
+                load: async function (key) {
+                    const database = await window.interactiveComics.progress.open();
+                    return new Promise(function (resolve, reject) {
+                        const transaction = database.transaction("progress", "readonly");
+                        const request = transaction.objectStore("progress").get(key);
+                        request.onsuccess = function () {
+                            resolve(request.result ? request.result.snapshot : null);
+                        };
+                        request.onerror = function () {
+                            reject(request.error);
+                        };
+                        transaction.oncomplete = function () {
+                            database.close();
+                        };
+                    });
+                },
+                remove: async function (key) {
+                    const database = await window.interactiveComics.progress.open();
+                    return new Promise(function (resolve, reject) {
+                        const transaction = database.transaction("progress", "readwrite");
+                        transaction.objectStore("progress").delete(key);
+                        transaction.oncomplete = function () {
+                            database.close();
+                            resolve();
+                        };
+                        transaction.onerror = function () {
+                            database.close();
+                            reject(transaction.error);
+                        };
+                        transaction.onabort = transaction.onerror;
+                    });
+                }
             }
         };
     </script>
