@@ -2,7 +2,7 @@
   <rect width="720" height="1000" fill="#183b35"/>
   <circle cx="90" cy="100" r="150" fill="#24594f"/>
   <circle cx="650" cy="900" r="210" fill="#24594f"/>
-  <text x="360" y="185" fill="#ffffff" font-family="sans-serif" font-size="54" text-anchor="middle">PAGE 3 / 3</text>
+  <text x="360" y="185" fill="#ffffff" font-family="sans-serif" font-size="54" text-anchor="middle">PAGE 6 / 6</text>
   <text x="360" y="255" fill="#8be0c5" font-family="sans-serif" font-size="29" text-anchor="middle">720 px wide · normalized independently</text>
   <rect x="200" y="410" width="320" height="180" rx="28" fill="none" stroke="#72e0b8" stroke-width="10" stroke-dasharray="20 12"/>
   <text x="360" y="700" fill="#d7fff2" font-family="sans-serif" font-size="30" text-anchor="middle">Release the marker to finish.</text>

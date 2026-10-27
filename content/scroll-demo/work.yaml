@@ -8,6 +8,15 @@ resources:
   page_interaction:
     type: image
     path: images/page-2.svg
+  page_checkpoint_a:
+    type: image
+    path: images/page-4.svg
+  page_checkpoint_b:
+    type: image
+    path: images/page-5.svg
+  page_checkpoint_c:
+    type: image
+    path: images/page-6.svg
   page_finish:
     type: image
     path: images/page-3.svg
@@ -24,8 +33,14 @@ scenes:
     pages:
       - id: intro
         resource: page_intro
+      - id: checkpoint_a
+        resource: page_checkpoint_a
       - id: interaction
         resource: page_interaction
+      - id: checkpoint_b
+        resource: page_checkpoint_b
+      - id: checkpoint_c
+        resource: page_checkpoint_c
       - id: finish
         resource: page_finish
 

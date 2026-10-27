@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="840" height="1400" viewBox="0 0 840 1400">
+  <rect width="840" height="1400" fill="#172d35"/>
+  <rect x="60" y="70" width="720" height="1260" rx="42" fill="#21434e"/>
+  <text x="420" y="210" fill="#ffffff" font-family="sans-serif" font-size="60" text-anchor="middle">PAGE 5 / 6</text>
+  <text x="420" y="300" fill="#93d8e8" font-family="sans-serif" font-size="31" text-anchor="middle">FINAL RESTORE CHECKPOINT</text>
+  <rect x="150" y="480" width="540" height="420" rx="34" fill="#19343d" stroke="#61afc2" stroke-width="8"/>
+  <text x="420" y="650" fill="#d9f4fa" font-family="sans-serif" font-size="31" text-anchor="middle">Save manually on this page.</text>
+  <text x="420" y="715" fill="#b4dce5" font-family="sans-serif" font-size="27" text-anchor="middle">Then load the slot and compare position.</text>
+  <text x="420" y="1110" fill="#d9f4fa" font-family="sans-serif" font-size="28" text-anchor="middle">The finish interaction is on the next page.</text>
+</svg>

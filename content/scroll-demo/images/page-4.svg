@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="1300" viewBox="0 0 900 1300">
+  <rect width="900" height="1300" fill="#2d2038"/>
+  <rect x="70" y="80" width="760" height="1140" rx="40" fill="#432f52"/>
+  <text x="450" y="210" fill="#ffffff" font-family="sans-serif" font-size="62" text-anchor="middle">PAGE 2 / 6</text>
+  <text x="450" y="300" fill="#d7a9ef" font-family="sans-serif" font-size="32" text-anchor="middle">FIRST RESTORE CHECKPOINT</text>
+  <path d="M190 520h520M190 650h520M190 780h520" stroke="#a77bc0" stroke-width="18" stroke-linecap="round"/>
+  <text x="450" y="1010" fill="#eadcf2" font-family="sans-serif" font-size="30" text-anchor="middle">Leave the viewer here, then choose Continue.</text>
+  <text x="450" y="1070" fill="#cbb4d8" font-family="sans-serif" font-size="25" text-anchor="middle">The browser should return close to this page.</text>
+</svg>
