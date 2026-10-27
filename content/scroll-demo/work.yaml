@@ -1,4 +1,4 @@
-id: scroll_demo
+id: scroll-demo
 initial_scene: scroll_reader
 
 resources:
