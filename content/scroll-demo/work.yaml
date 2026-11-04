@@ -85,10 +85,27 @@ scenes:
           target: middle_marker
           commands:
             - type: show
+          transitions:
+            - property: position
+              to: [320, 500]
+              duration: 0.001
+              transition: linear
+              ease: in
         - time: 0
           target: finish_marker
           commands:
             - type: show
+          transitions:
+            - property: position
+              to: [180, 410]
+              duration: 0.001
+              transition: linear
+              ease: in
+            - property: scale
+              to: [0.8333333333, 0.8888888889]
+              duration: 0.001
+              transition: linear
+              ease: in
         - time: 0
           target: middle_area
           commands:

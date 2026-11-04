@@ -52,6 +52,12 @@ scenes:
           commands:
             - type: show
           transitions:
+            - property: position
+              to: [420, 230]
+              duration: 0.001
+              transition: linear
+              ease: in
+
             - property: opacity
               to: 1.0
               duration: 1.25
