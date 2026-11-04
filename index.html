@@ -70,6 +70,7 @@
             registerLifecycle: function (receiver) {
                 this.unregisterLifecycle();
                 this.cancelInFlight = false;
+                this.restoringViewerHistory = false;
                 const save = function () {
                     receiver.invokeMethodAsync("SaveBeforeSuspendAsync");
                 };
@@ -96,8 +97,13 @@
                     if (!window.interactiveComics.viewerNavigationActive) {
                         return;
                     }
-                    history.pushState({ interactiveComicsViewer: true }, "");
-                    requestCancel();
+                    if (window.interactiveComics.restoringViewerHistory) {
+                        window.interactiveComics.restoringViewerHistory = false;
+                        requestCancel();
+                        return;
+                    }
+                    window.interactiveComics.restoringViewerHistory = true;
+                    history.forward();
                 };
                 const keyDown = function (event) {
                     if (event.key === "Escape" &&
@@ -127,15 +133,18 @@
                 document.removeEventListener("visibilitychange", this.lifecycle.visibility);
                 this.lifecycle = null;
                 this.cancelInFlight = false;
+                this.restoringViewerHistory = false;
             },
             setViewerNavigationActive: function (active) {
                 if (active && !this.viewerNavigationActive) {
                     history.pushState({ interactiveComicsViewer: true }, "");
                     this.viewerNavigationActive = true;
+                    this.restoringViewerHistory = false;
                     return;
                 }
                 if (!active && this.viewerNavigationActive) {
                     this.viewerNavigationActive = false;
+                    this.restoringViewerHistory = false;
                     this.suppressNextPop = true;
                     history.back();
                 }
