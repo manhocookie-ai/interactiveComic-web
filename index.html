@@ -6,26 +6,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Interactive Comics</title>
     <base href="./" />
-    <link href="_framework/dotnet.twb3pxaern.js" rel="preload" as="script" fetchpriority="high" crossorigin="anonymous" integrity="sha256-DVzncJnfUtVlP+OZKrWombC61JHc2yi6Qfi5e1wmruk=" />
+    <link href="_framework/dotnet.7wmq6v60u6.js" rel="preload" as="script" fetchpriority="high" crossorigin="anonymous" integrity="sha256-Z/iWui9eZPtM3WWswTxZYSvK3tVz5l9hyf1FbWlhfag=" />
     <link rel="stylesheet" href="css/app.css" />
     <link href="InteractiveComics.Web.styles.css" rel="stylesheet" />
     <script type="importmap">{
   "imports": {
     "./_framework/blazor.webassembly.js": "./_framework/blazor.webassembly.w3qd1tpl0e.js",
+    "./_framework/dotnet.js": "./_framework/dotnet.7wmq6v60u6.js",
     "./_framework/dotnet.native.js": "./_framework/dotnet.native.puryxhmhq9.js",
-    "./_framework/dotnet.runtime.js": "./_framework/dotnet.runtime.web2r9gqbh.js",
-    "./_framework/dotnet.js": "./_framework/dotnet.twb3pxaern.js"
+    "./_framework/dotnet.runtime.js": "./_framework/dotnet.runtime.web2r9gqbh.js"
   },
   "scopes": {},
   "integrity": {
     "./_framework/blazor.webassembly.js": "sha256-lDXsDYFgm62F+YUvxES7IOTCXYpiHpU3uR45YdC6mq4=",
     "./_framework/blazor.webassembly.w3qd1tpl0e.js": "sha256-lDXsDYFgm62F+YUvxES7IOTCXYpiHpU3uR45YdC6mq4=",
-    "./_framework/dotnet.js": "sha256-DVzncJnfUtVlP+OZKrWombC61JHc2yi6Qfi5e1wmruk=",
+    "./_framework/dotnet.7wmq6v60u6.js": "sha256-Z/iWui9eZPtM3WWswTxZYSvK3tVz5l9hyf1FbWlhfag=",
+    "./_framework/dotnet.js": "sha256-Z/iWui9eZPtM3WWswTxZYSvK3tVz5l9hyf1FbWlhfag=",
     "./_framework/dotnet.native.js": "sha256-gQbHHzCnWx8iDOC65EKbql7bEltJkfao7lmkAbIRajw=",
     "./_framework/dotnet.native.puryxhmhq9.js": "sha256-gQbHHzCnWx8iDOC65EKbql7bEltJkfao7lmkAbIRajw=",
     "./_framework/dotnet.runtime.js": "sha256-SOUHEQ3FhDAibBSR2u90NWZpoBjPuWRmH0BAATUlhJU=",
-    "./_framework/dotnet.runtime.web2r9gqbh.js": "sha256-SOUHEQ3FhDAibBSR2u90NWZpoBjPuWRmH0BAATUlhJU=",
-    "./_framework/dotnet.twb3pxaern.js": "sha256-DVzncJnfUtVlP+OZKrWombC61JHc2yi6Qfi5e1wmruk="
+    "./_framework/dotnet.runtime.web2r9gqbh.js": "sha256-SOUHEQ3FhDAibBSR2u90NWZpoBjPuWRmH0BAATUlhJU="
   }
 }</script>
 </head>
@@ -78,15 +78,7 @@
                         save();
                     }
                 };
-                const popState = function () {
-                    if (window.interactiveComics.suppressNextPop) {
-                        window.interactiveComics.suppressNextPop = false;
-                        return;
-                    }
-                    if (!window.interactiveComics.viewerNavigationActive) {
-                        return;
-                    }
-                    history.pushState({ interactiveComicsViewer: true }, "");
+                const requestCancel = function () {
                     if (window.interactiveComics.cancelInFlight) {
                         return;
                     }
@@ -96,11 +88,22 @@
                             window.interactiveComics.cancelInFlight = false;
                         });
                 };
+                const popState = function () {
+                    if (window.interactiveComics.suppressNextPop) {
+                        window.interactiveComics.suppressNextPop = false;
+                        return;
+                    }
+                    if (!window.interactiveComics.viewerNavigationActive) {
+                        return;
+                    }
+                    history.pushState({ interactiveComicsViewer: true }, "");
+                    requestCancel();
+                };
                 const keyDown = function (event) {
                     if (event.key === "Escape" &&
                         window.interactiveComics.viewerNavigationActive) {
                         event.preventDefault();
-                        receiver.invokeMethodAsync("HandleCancelAsync");
+                        requestCancel();
                     }
                 };
                 window.addEventListener("pagehide", save);
