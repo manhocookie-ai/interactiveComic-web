@@ -239,11 +239,28 @@ button:focus-visible {
     background: #080a0d;
 }
 
+.page-viewer {
+    display: grid;
+    height: 100vh;
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+    place-items: center;
+}
+
 .comic-page {
     position: relative;
     width: 100%;
     overflow: hidden;
     background: #202631;
+    container-type: size;
+}
+
+.page-viewer .comic-page {
+    width: min(100vw, calc(100vh * var(--page-aspect)));
+    width: min(100vw, calc(100dvh * var(--page-aspect)));
+    max-height: 100vh;
+    max-height: 100dvh;
 }
 
 .page-image {
@@ -267,6 +284,8 @@ button:focus-visible {
 .comic-interaction {
     position: absolute;
     z-index: 3;
+    min-width: 0;
+    min-height: 0;
     cursor: pointer;
     touch-action: pan-y;
 }
@@ -420,11 +439,14 @@ button:focus-visible {
 }
 
 .text-interaction {
-    border: 2px solid #ffffff;
-    border-radius: 10px;
+    padding: clamp(2px, 0.55cqi, 8px);
+    border: clamp(1px, 0.14cqi, 2px) solid #ffffff;
+    border-radius: clamp(4px, 0.7cqi, 10px);
     background: #bf402a;
     color: #ffffff;
+    font-size: clamp(0.5rem, 1.1cqi, 1rem);
     font-weight: 700;
+    line-height: 1.2;
 }
 
 .text-interaction:hover {
