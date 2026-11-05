@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1448" height="1086" viewBox="0 0 1448 1086">
+  <rect x="700" y="56" width="688" height="238" rx="24" fill="#17213a" fill-opacity=".82" stroke="#ffe0a0" stroke-width="3"/>
+  <text x="742" y="112" fill="#fff8e8" font-family="Pretendard, Noto Sans KR, sans-serif" font-size="30">
+    <tspan x="742" dy="0" fill="#ffe0a0" font-size="38">배달 완료</tspan>
+    <tspan x="742" dy="58">아침 햇살 아래 우체국은 폐허가 되어 있었다.</tspan>
+    <tspan x="742" dy="50">편지에는 마지막 문장이 새로 나타났다.</tspan>
+    <tspan x="742" dy="50" fill="#ffe0a0">“이제 어제의 너에게 이 편지를 보내.”</tspan>
+  </text>
+</svg>

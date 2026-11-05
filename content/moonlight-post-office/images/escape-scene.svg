@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="768" viewBox="0 0 1024 768">
+  <image href="escape.png" width="1024" height="768" preserveAspectRatio="xMidYMid slice"/>
+  <rect x="46" y="38" width="620" height="212" rx="22" fill="#111321" fill-opacity=".9" stroke="#b8c8ff" stroke-width="3"/>
+  <text x="80" y="84" fill="#f7f5ff" font-family="sans-serif" font-size="25">
+    <tspan x="80" dy="0">열쇠가 맞았다. 문틈으로 새벽빛이 쏟아졌다.</tspan>
+    <tspan x="80" dy="44">모아가 문을 향해 달리자, 뒤에서 작은 울음이 들렸다.</tspan>
+    <tspan x="80" dy="48" fill="#b8c8ff">“모아야… 나도 데려가 줘.”</tspan>
+    <tspan x="80" dy="42">딸랑. 마지막 종이 울렸다.</tspan>
+  </text>
+</svg>

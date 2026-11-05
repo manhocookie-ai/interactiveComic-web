@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="768" viewBox="0 0 1024 768">
+  <image href="post-office.png" width="1024" height="768" preserveAspectRatio="xMidYMid slice"/>
+  <rect x="78" y="45" width="868" height="220" rx="22" fill="#171425" fill-opacity=".9" stroke="#e9c87b" stroke-width="3"/>
+  <text x="112" y="88" fill="#fff8e8" font-family="sans-serif" font-size="24">
+    <tspan x="112" dy="0" fill="#e9c87b">발신인: 내일 아침의 모아</tspan>
+    <tspan x="112" dy="42">“종이 세 번 울리기 전에 우체국을 떠나.”</tspan>
+    <tspan x="112" dy="38">“누가 네 목소리로 불러도 대답하지 마.”</tspan>
+    <tspan x="112" dy="38">“마지막 종이 울리면 절대 뒤돌아보지 마.”</tspan>
+    <tspan x="112" dy="42" fill="#ffdba0">딸랑. 선반에서 모아의 이름이 적힌 소포가 떨어졌다.</tspan>
+  </text>
+</svg>

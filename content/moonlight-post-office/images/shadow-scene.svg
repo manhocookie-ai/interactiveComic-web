@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="768" viewBox="0 0 1024 768">
+  <image href="shadow.png" width="1024" height="768" preserveAspectRatio="xMidYMid slice"/>
+  <rect x="48" y="40" width="610" height="210" rx="22" fill="#141222" fill-opacity=".9" stroke="#b8c8ff" stroke-width="3"/>
+  <text x="82" y="88" fill="#f7f5ff" font-family="sans-serif" font-size="25">
+    <tspan x="82" dy="0">조명이 꺼지자 모아의 그림자 옆에 긴 귀가 솟았다.</tspan>
+    <tspan x="82" dy="42">모아가 멈춰도, 그림자는 한 걸음씩 가까워졌다.</tspan>
+    <tspan x="82" dy="48" fill="#b8c8ff">“모아야, 열쇠는 가짜야. 창고로 와.”</tspan>
+    <tspan x="82" dy="40">그것은 모아와 똑같은 목소리였다. 두 번째 종이 울렸다.</tspan>
+  </text>
+</svg>

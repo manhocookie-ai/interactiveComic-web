@@ -1,0 +1,301 @@
+id: moonlight-post-office
+initial_scene: arrival
+
+resources:
+  arrival_page: { type: image, path: images/post-office.png }
+  arrival_text: { type: image, path: images/text/arrival-text.svg }
+  letter_page: { type: image, path: images/letter-reading-v1.png }
+  letter_text: { type: image, path: images/text/letter-text.svg }
+  shadow_page: { type: image, path: images/shadow-corridor-v1.png }
+  shadow_text: { type: image, path: images/text/shadow-text.svg }
+  archive_page: { type: image, path: images/doll-archive-v1.png }
+  archive_text: { type: image, path: images/text/archive-text.svg }
+  escape_page: { type: image, path: images/escape-run-v1.png }
+  escape_text: { type: image, path: images/text/escape-text.svg }
+  ending_escape_page: { type: image, path: images/ending-escape-v1.png }
+  ending_escape_text: { type: image, path: images/text/ending-escape-text.svg }
+  ending_doll_page: { type: image, path: images/ending-doll.png }
+  ending_doll_text: { type: image, path: images/text/ending-doll-text.svg }
+
+scenes:
+  - id: arrival
+    pages:
+      - { id: arrival, resource: arrival_page }
+    objects:
+      - { id: narration, resource: arrival_text, page: arrival }
+    choices:
+      - id: take_letter
+        effects:
+          - { type: change_scene, scene: letter }
+    interactable_areas:
+      - id: continue
+        choice: take_letter
+        text: 검은 편지를 펼쳐 본다
+        page: arrival
+        bounds: [484, 938, 480, 82]
+    timeline:
+      events:
+        - time: 0
+          target: narration
+          transitions:
+            - { property: position, to: [0, 0], duration: 0.001, transition: linear, ease: in }
+            - { property: opacity, to: 0.01, duration: 0.001, transition: linear, ease: in }
+        - time: 0.2
+          target: narration
+          commands: [{ type: show }]
+          transitions:
+            - { property: opacity, to: 1.0, duration: 0.8, transition: sine, ease: out }
+        - time: 1.2
+          target: continue
+          commands: [{ type: enable_interactable_area }]
+
+  - id: letter
+    pages:
+      - { id: letter, resource: letter_page }
+    objects:
+      - { id: narration, resource: letter_text, page: letter }
+    choices:
+      - id: follow_warning
+        effects:
+          - { type: change_scene, scene: shadow }
+    interactable_areas:
+      - id: continue
+        choice: follow_warning
+        text: 종소리가 난 창고로 향한다
+        page: letter
+        bounds: [484, 938, 480, 82]
+    timeline:
+      events:
+        - time: 0
+          target: narration
+          transitions:
+            - { property: position, to: [0, 0], duration: 0.001, transition: linear, ease: in }
+            - { property: opacity, to: 0.01, duration: 0.001, transition: linear, ease: in }
+        - time: 0.2
+          target: narration
+          commands: [{ type: show }]
+          transitions:
+            - { property: opacity, to: 1.0, duration: 0.8, transition: sine, ease: out }
+        - time: 1.2
+          target: continue
+          commands: [{ type: enable_interactable_area }]
+
+  - id: shadow
+    pages:
+      - { id: shadow, resource: shadow_page }
+    objects:
+      - { id: narration, resource: shadow_text, page: shadow }
+    choices:
+      - id: take_key
+        effects:
+          - { type: flag, key: trusted_warning, value: true }
+          - { type: change_scene, scene: archive }
+      - id: answer_voice
+        effects:
+          - { type: flag, key: answered_voice, value: true }
+          - { type: change_scene, scene: archive }
+    interactable_areas:
+      - id: key_choice
+        choice: take_key
+        text: 목소리를 무시하고 열쇠를 줍는다
+        page: shadow
+        bounds: [90, 936, 590, 84]
+      - id: voice_choice
+        choice: answer_voice
+        text: 내 목소리에 대답한다
+        page: shadow
+        bounds: [768, 936, 590, 84]
+    timeline:
+      events:
+        - time: 0
+          target: narration
+          transitions:
+            - { property: position, to: [0, 0], duration: 0.001, transition: linear, ease: in }
+            - { property: opacity, to: 0.01, duration: 0.001, transition: linear, ease: in }
+        - time: 0.2
+          target: narration
+          commands: [{ type: show }]
+          transitions:
+            - { property: opacity, to: 1.0, duration: 0.8, transition: sine, ease: out }
+        - time: 1.4
+          target: key_choice
+          commands: [{ type: enable_interactable_area }]
+        - time: 1.4
+          target: voice_choice
+          commands: [{ type: enable_interactable_area }]
+
+  - id: archive
+    pages:
+      - { id: archive, resource: archive_page }
+    objects:
+      - { id: narration, resource: archive_text, page: archive }
+    choices:
+      - id: run_upstairs
+        effects:
+          - { type: change_scene, scene: escape }
+    interactable_areas:
+      - id: continue
+        choice: run_upstairs
+        text: 마지막 종이 울리기 전에 달린다
+        page: archive
+        bounds: [454, 938, 540, 82]
+    timeline:
+      events:
+        - time: 0
+          target: narration
+          transitions:
+            - { property: position, to: [0, 0], duration: 0.001, transition: linear, ease: in }
+            - { property: opacity, to: 0.01, duration: 0.001, transition: linear, ease: in }
+        - time: 0.2
+          target: narration
+          commands: [{ type: show }]
+          transitions:
+            - { property: opacity, to: 1.0, duration: 0.8, transition: sine, ease: out }
+        - time: 1.4
+          target: continue
+          commands: [{ type: enable_interactable_area }]
+
+  - id: escape
+    pages:
+      - { id: escape, resource: escape_page }
+    objects:
+      - { id: narration, resource: escape_text, page: escape }
+    choices:
+      - id: do_not_turn
+        condition:
+          source: flag
+          key: answered_voice
+          operator: "=="
+          value: false
+        effects:
+          - { type: change_scene, scene: ending_escape }
+      - id: turn_back
+        condition:
+          source: flag
+          key: answered_voice
+          operator: "=="
+          value: false
+        effects:
+          - { type: change_scene, scene: ending_doll }
+      - id: marked_by_voice
+        condition:
+          source: flag
+          key: answered_voice
+          operator: "=="
+          value: true
+        effects:
+          - { type: change_scene, scene: ending_doll }
+    interactable_areas:
+      - id: door_choice
+        choice: do_not_turn
+        text: 뒤돌아보지 않고 문을 연다
+        page: escape
+        bounds: [90, 936, 590, 84]
+      - id: doll_choice
+        choice: turn_back
+        text: 울음소리를 향해 돌아본다
+        page: escape
+        bounds: [768, 936, 590, 84]
+      - id: marked_choice
+        choice: marked_by_voice
+        text: 새벽빛을 향해 달린다
+        page: escape
+        bounds: [484, 936, 480, 84]
+    timeline:
+      events:
+        - time: 0
+          target: narration
+          transitions:
+            - { property: position, to: [0, 0], duration: 0.001, transition: linear, ease: in }
+            - { property: opacity, to: 0.01, duration: 0.001, transition: linear, ease: in }
+        - time: 0.2
+          target: narration
+          commands: [{ type: show }]
+          transitions:
+            - { property: opacity, to: 1.0, duration: 0.8, transition: sine, ease: out }
+        - time: 1.4
+          target: door_choice
+          condition:
+            source: flag
+            key: answered_voice
+            operator: "=="
+            value: false
+          commands: [{ type: enable_interactable_area }]
+        - time: 1.4
+          target: doll_choice
+          condition:
+            source: flag
+            key: answered_voice
+            operator: "=="
+            value: false
+          commands: [{ type: enable_interactable_area }]
+        - time: 1.4
+          target: marked_choice
+          condition:
+            source: flag
+            key: answered_voice
+            operator: "=="
+            value: true
+          commands: [{ type: enable_interactable_area }]
+
+  - id: ending_escape
+    pages:
+      - { id: ending_escape, resource: ending_escape_page }
+    objects:
+      - { id: narration, resource: ending_escape_text, page: ending_escape }
+    choices:
+      - id: restart
+        effects:
+          - { type: change_scene, scene: arrival }
+    interactable_areas:
+      - id: restart_button
+        choice: restart
+        text: 처음부터 다시 읽기
+        page: ending_escape
+        bounds: [484, 952, 480, 76]
+    timeline:
+      events:
+        - time: 0
+          target: narration
+          transitions:
+            - { property: position, to: [0, 0], duration: 0.001, transition: linear, ease: in }
+            - { property: opacity, to: 0.01, duration: 0.001, transition: linear, ease: in }
+        - time: 0.2
+          target: narration
+          commands: [{ type: show }]
+          transitions:
+            - { property: opacity, to: 1.0, duration: 0.8, transition: sine, ease: out }
+        - time: 1.2
+          target: restart_button
+          commands: [{ type: enable_interactable_area }]
+
+  - id: ending_doll
+    pages:
+      - { id: ending_doll, resource: ending_doll_page }
+    objects:
+      - { id: narration, resource: ending_doll_text, page: ending_doll }
+    choices:
+      - id: restart
+        effects:
+          - { type: change_scene, scene: arrival }
+    interactable_areas:
+      - id: restart_button
+        choice: restart
+        text: 처음부터 다시 읽기
+        page: ending_doll
+        bounds: [484, 952, 480, 76]
+    timeline:
+      events:
+        - time: 0
+          target: narration
+          transitions:
+            - { property: position, to: [0, 0], duration: 0.001, transition: linear, ease: in }
+            - { property: opacity, to: 0.01, duration: 0.001, transition: linear, ease: in }
+        - time: 0.2
+          target: narration
+          commands: [{ type: show }]
+          transitions:
+            - { property: opacity, to: 1.0, duration: 0.8, transition: sine, ease: out }
+        - time: 1.2
+          target: restart_button
+          commands: [{ type: enable_interactable_area }]

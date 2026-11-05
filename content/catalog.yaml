@@ -1,4 +1,11 @@
 works:
+  - id: moonlight-post-office
+    name: 달빛 우체국의 마지막 편지
+    thumbnail: moonlight-post-office/images/post-office.png
+    episodes:
+      - id: episode-1
+        title: 마지막 편지
+        path: moonlight-post-office/work.yaml
   - id: demo
     name: 데모 작품
     thumbnail: demo/images/thumbnail.svg
