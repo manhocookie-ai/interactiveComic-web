@@ -1,6 +1,7 @@
 works:
   - id: moonlight-post-office
     name: 달빛 우체국의 마지막 편지
+    content_version: 2026-11-06-1
     thumbnail: moonlight-post-office/images/post-office.png
     episodes:
       - id: episode-1
@@ -8,6 +9,7 @@ works:
         path: moonlight-post-office/work.yaml
   - id: demo
     name: 데모 작품
+    content_version: "1"
     thumbnail: demo/images/thumbnail.svg
     episodes:
       - id: episode-1
@@ -15,6 +17,7 @@ works:
         path: demo/work.yaml
   - id: scroll-demo
     name: 스크롤 데모
+    content_version: "1"
     thumbnail: scroll-demo/images/page-1.svg
     episodes:
       - id: episode-1
