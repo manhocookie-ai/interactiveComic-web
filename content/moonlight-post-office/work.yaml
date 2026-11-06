@@ -16,6 +16,7 @@ resources:
   ending_escape_text: { type: image, path: images/text/ending-escape-text.svg }
   ending_doll_page: { type: image, path: images/ending-doll.png }
   ending_doll_text: { type: image, path: images/text/ending-doll-text.svg }
+  ending_marked_text: { type: image, path: images/text/ending-marked-text.svg }
 
 scenes:
   - id: arrival
@@ -274,6 +275,7 @@ scenes:
       - { id: ending_doll, resource: ending_doll_page }
     objects:
       - { id: narration, resource: ending_doll_text, page: ending_doll }
+      - { id: marked_narration, resource: ending_marked_text, page: ending_doll }
     choices:
       - id: restart
         effects:
@@ -291,8 +293,28 @@ scenes:
           transitions:
             - { property: position, to: [0, 0], duration: 0.001, transition: linear, ease: in }
             - { property: opacity, to: 0.01, duration: 0.001, transition: linear, ease: in }
+        - time: 0
+          target: marked_narration
+          transitions:
+            - { property: position, to: [0, 0], duration: 0.001, transition: linear, ease: in }
+            - { property: opacity, to: 0.01, duration: 0.001, transition: linear, ease: in }
         - time: 0.2
           target: narration
+          condition:
+            source: flag
+            key: answered_voice
+            operator: "=="
+            value: false
+          commands: [{ type: show }]
+          transitions:
+            - { property: opacity, to: 1.0, duration: 0.8, transition: sine, ease: out }
+        - time: 0.2
+          target: marked_narration
+          condition:
+            source: flag
+            key: answered_voice
+            operator: "=="
+            value: true
           commands: [{ type: show }]
           transitions:
             - { property: opacity, to: 1.0, duration: 0.8, transition: sine, ease: out }
